@@ -1,5 +1,9 @@
 import os
-from utils import HtmlManage as html
+from os import path
+if __name__ == "__main__":
+    import sys
+    sys.path.append(path.join(path.dirname(__file__),'..'))
+    from utils import HtmlManage as html
 
 def WriteTxt(source, name, folderName, skipLine = False, split = False, extension = ".txt"):
     filename = name + extension
@@ -55,46 +59,45 @@ def QueryElearning(server,user,password,db):
     conn.close()
     return rows
 
-if __name__ == "__main__":
-    from selenium import webdriver
-    from selenium.webdriver.common.keys import Keys
-    from selenium.webdriver.support.ui import WebDriverWait
-    from selenium.webdriver.support import expected_conditions as EC
-    from selenium.common.exceptions import TimeoutException
-    from selenium.common.exceptions import NoSuchElementException
-    Qresult = QueryElearning(server=input("server: "),user=input("user: "),password=input("pass: "),db=input("db: "))
-    acciones = GetAcciones(Qresult)
-    driver = GetDriver(input("Sence User: "),input("pass: "))
-    print(acciones)
-    for i in acciones:
-        try:
-            driver.find_element_by_id("IDACCION").send_keys(str(i))
-            button = driver.find_element_by_xpath('//*[@id="Formulario"]/table[2]/tbody/tr[3]/td/input')
-            button.click()
-            elements = []
-            retries = 50
-            while retries != 0:
-                try:
-                    table = driver.find_elements_by_xpath('html/body/div//*[@id="Formulario"]/table[5]')
-                    print(len(table))
-                    #source = driver.page_source
-                    if len(table) != 0:
-                        driver.find_element_by_id("IDACCION").clear()
-                        elements = table[0].find_elements_by_xpath('.//*')
-                        print(elements[0].text)
-                        WriteTxt(elements[0].text,str(i),"acciones",split = True, extension = ".csv")     
-                        break
-                    retries = retries - 1
-                    continue
-                    #writeHTML(source,str(i),"html")
-                except TimeoutException:
-                    print ("Loading took too much time!")
-                    retries = retries - 1
-                    continue
-                except NoSuchElementException:
-                    print ("Unable to find the element")
-                    retries = retries - 1
-                    continue
-        except:
-            input("¿Continuar? Debe de cerrar el mensaje, curso no E-learning.")
-            driver.find_element_by_id("IDACCION").clear()
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
+Qresult = QueryElearning(server=input("server: "),user=input("user: "),password=input("pass: "),db=input("db: "))
+acciones = GetAcciones(Qresult)
+driver = GetDriver(input("Sence User: "),input("pass: "))
+print(acciones)
+for i in acciones:
+    try:
+        driver.find_element_by_id("IDACCION").send_keys(str(i))
+        button = driver.find_element_by_xpath('//*[@id="Formulario"]/table[2]/tbody/tr[3]/td/input')
+        button.click()
+        elements = []
+        retries = 50
+        while retries != 0:
+            try:
+                table = driver.find_elements_by_xpath('html/body/div//*[@id="Formulario"]/table[5]')
+                print(len(table))
+                #source = driver.page_source
+                if len(table) != 0:
+                    driver.find_element_by_id("IDACCION").clear()
+                    elements = table[0].find_elements_by_xpath('.//*')
+                    print(elements[0].text)
+                    WriteTxt(elements[0].text,str(i),"acciones",split = True, extension = ".csv")     
+                    break
+                retries = retries - 1
+                continue
+                #writeHTML(source,str(i),"html")
+            except TimeoutException:
+                print ("Loading took too much time!")
+                retries = retries - 1
+                continue
+            except NoSuchElementException:
+                print ("Unable to find the element")
+                retries = retries - 1
+                continue
+    except:
+        input("¿Continuar? Debe de cerrar el mensaje, curso no E-learning.")
+        driver.find_element_by_id("IDACCION").clear()

@@ -1,7 +1,11 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from utils import HtmlManage as html
+from os import path
+if __name__ == "__main__":
+    import sys
+    sys.path.append(path.join(path.dirname(__file__),'..'))
+    from utils import HtmlManage as html
 
 def scrapNetAcademy(language):
     username = input("NetAcademy User: ")
@@ -33,5 +37,5 @@ def scrapNetAcademy(language):
         driver.find_element_by_id("page-menu-next-button").click()
     #driver.close()
     return
-if __name__ == "__main__":
-    scrapNetAcademy(input("Language es en fr: "))
+    
+scrapNetAcademy(input("Language es en fr: "))

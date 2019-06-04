@@ -1,20 +1,24 @@
 import PDF2Text
 import pyperclip
-from utils import FileManage
+from os import path
 
-pdf = FileManage.OpenDialog("Pdf",".pdf")
-text = PDF2Text.PDF2Txt(pdf.Get())
-certificado = text.Read()
+if __name__ == "__main__":
+    import sys
+    sys.path.append(path.join(path.dirname(__file__),'..'))
+    from utils import FileManage
 
-index = [i for i, letter in enumerate(certificado) if letter == '%']
-percentages = ""
-for i in range(len(index)):
-    #print("index")
-    num = int(certificado[index[i]-4:index[i]])
-    percentages = percentages + str(num) + '\n'
+    pdf = FileManage.OpenDialog("Pdf",".pdf")
+    text = PDF2Text.PDF2Txt(pdf)
+    certificado = text.Read()
 
-pyperclip.copy(percentages)
-print(percentages)
-print("Pegar en SICAP: ")
+    index = [i for i, letter in enumerate(certificado) if letter == '%']
+    percentages = ""
+    for i in range(len(index)):
+        #print("index")
+        num = int(certificado[index[i]-4:index[i]])
+        percentages = percentages + str(num) + '\n'
 
-input()
+    print(percentages)
+    print("Pegar en SICAP: ")
+    input()
+    pyperclip.copy(percentages)

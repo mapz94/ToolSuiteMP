@@ -7,7 +7,7 @@ def OpenDialog(fileType = "",extension = ""):
     o.DoModal()
     #print (self.o.GetPathName())
     address = o.GetPathName()
-    f = open(address,'r')
-    return f
+    with open(address,'rb') as f:
+        return f
 
 print(OpenDialog("Pdf",".pdf"))

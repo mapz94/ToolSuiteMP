@@ -1,8 +1,12 @@
 import os
 from selenium import webdriver
-from ..utils import ExcelManage
-from ..utils import PDFManage
-from ..utils import HtmlManage
+from os import path
+if __name__ == "__main__":
+    import sys
+    sys.path.append(path.join(path.dirname(__file__),'..'))
+    from utils import ExcelManage
+    from utils import PDFManage
+    from utils import HtmlManage
 
 
 def GetDriverAtSence(username,password):
@@ -48,3 +52,4 @@ def GetLiquidaciones():
                 except:
                         continue
         driver.close
+GetLiquidaciones()

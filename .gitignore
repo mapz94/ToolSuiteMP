@@ -215,3 +215,8 @@ Netacademy Scrap/debug.log
 ConsultaLiquidacionSence/debug.log
 ConsultaLiquidacionSence/list.xlsx
 ConsultaLiquidacionSence/temp.pdf
+utils/__pycache__/ExcelManage.cpython-37.pyc
+utils/__pycache__/PDFManage.cpython-37.pyc
+utils/__pycache__/FileManage.cpython-37.pyc
+utils/__pycache__/HtmlManage.cpython-37.pyc
+utils/__pycache__/__init__.cpython-37.pyc
