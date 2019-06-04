@@ -7,6 +7,7 @@ if __name__ == "__main__":
     from utils import ExcelManage
     from utils import PDFManage
     from utils import HtmlManage
+    from utils import FileManage
 
 
 def GetDriverAtSence(username,password):
@@ -41,7 +42,8 @@ def GetStatuses(driver, idAccion):
         return
 
 def GetLiquidaciones():
-        excel = ExcelManage.ExcelConnection('list.xlsx','Hoja1')
+        sheet = FileManage.OpenDialog(fileType = "Excel Spreadsheet",extension = ".xlsx")
+        excel = ExcelManage.ExcelConnection(sheet,'Hoja1')
         acciones = excel.collect(1,2)
         excel.close()
         driver = GetDriverAtSence(input("user: "), input("pass: "))

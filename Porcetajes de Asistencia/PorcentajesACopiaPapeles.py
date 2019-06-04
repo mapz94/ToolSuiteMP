@@ -8,7 +8,7 @@ if __name__ == "__main__":
     from utils import FileManage
 
     pdf = FileManage.OpenDialog("Pdf",".pdf")
-    text = PDF2Text.PDF2Txt(pdf)
+    text = PDF2Text.PDF2Txt(open(pdf))
     certificado = text.Read()
 
     index = [i for i, letter in enumerate(certificado) if letter == '%']

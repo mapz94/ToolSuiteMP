@@ -6,8 +6,5 @@ def OpenDialog(fileType = "",extension = ""):
     o = win32ui.CreateFileDialog( 1, fileType, None, 0,fileType +  " Files (*" + extension + ")|*"+ extension + "|All Files (*.*)|*.*|")
     o.DoModal()
     #print (self.o.GetPathName())
-    address = o.GetPathName()
-    with open(address,'rb') as f:
-        return f
-
-print(OpenDialog("Pdf",".pdf"))
+    return o.GetPathName()
+    
