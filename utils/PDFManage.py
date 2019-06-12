@@ -3,6 +3,22 @@ import pdfkit
 from PyPDF2 import PdfFileReader, PdfFileWriter
 import re
 
+def Printer(file):
+    os.startfile(file, "print")
+           
+def ToPDF(filename,filepath,toPrint = False):
+    name = filename + ".pdf"
+    out = os.path.join(os.path.dirname(__file__),"pdf")
+    os.makedirs(out, exist_ok=True)
+    pdfFile = os.path.join(out,name)
+    print(pdfFile)
+    try:
+        pdfkit.from_file(filepath, pdfFile)
+    except:
+        pass
+    if toPrint == True:
+        Printer(pdfFile)
+
 def merger(output_path, input_paths):
     pdf_writer = PdfFileWriter()
     for path in input_paths:
@@ -11,18 +27,6 @@ def merger(output_path, input_paths):
                 pdf_writer.addPage(pdf_reader.getPage(page))
     with open(output_path, 'wb') as fh:
         pdf_writer.write(fh)
-           
-def ToPDF(filename,filepath,toPrint):
-    name = filename[0:-4] + "pdf"
-    out = os.path.join(os.path.dirname(__file__),"pdf")
-    os.makedirs(out, exist_ok=True)
-    print(out)
-    try:
-        pdfkit.from_file(filepath, os.path.join(out,name))
-    except:
-        pass
-    if toPrint == True:
-        Printer(filepath)
 
 def naturalSort(objList):
     convert = lambda text: int(text) if text.isdigit() else text.lower() 
@@ -38,10 +42,6 @@ def mergerNatural():
 
 def makePDF():
     pdfkit
-
-def Printer(file):
-    os.startfile(file, "print")
-
 
 #merges PDF Files in folder
 if __name__ == "__main__":

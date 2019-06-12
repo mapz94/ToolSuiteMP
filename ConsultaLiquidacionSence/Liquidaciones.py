@@ -10,14 +10,10 @@ if __name__ == "__main__":
     from utils import FileManage
 
 
-def GetDriverAtSence(username,password):
-        username = username
-        password = password
+def GetDriverAtSence():
         driver = webdriver.Chrome()
         driver.get("http://www2.sence.cl/otic.htm")
         ###Inicio Sesion###
-        driver.find_element_by_id('username1').send_keys(username)
-        driver.find_element_by_id('password1').send_keys(password)
         input("Completar Captcha y clickear aceptar: ")
         #driver.find_element_by_id('B2').click()
         return driver
@@ -38,15 +34,15 @@ def GetStatuses(driver, idAccion):
         driver.switch_to.frame("inferior")
         source = driver.page_source
         htmlAddress = HtmlManage.writeHTML(source,idAccion,"html")
-        PDFManage.ToPDF(idAccion,htmlAddress,True)
+        PDFManage.ToPDF(idAccion,htmlAddress,toPrint = True)
         return
 
 def GetLiquidaciones():
         sheet = FileManage.OpenDialog(fileType = "Excel Spreadsheet",extension = ".xlsx")
         excel = ExcelManage.ExcelConnection(sheet,'Hoja1')
-        acciones = excel.collect(1,2)
+        acciones = excel.collect(row = 2, column = 2)
         excel.close()
-        driver = GetDriverAtSence(input("user: "), input("pass: "))
+        driver = GetDriverAtSence()
         for i in range(len(acciones)):
                 try:
                         idSence = acciones[i]
